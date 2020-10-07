@@ -95,7 +95,7 @@ class CompositeValueObjectConverter implements ValueObjectConverter, SerializerA
 
             $args[] = $value
                 ? $this->serializer->hydrate($typeAsString, $value, false)
-                : null;
+                : $value;
         }
 
         /**
