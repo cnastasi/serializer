@@ -12,16 +12,19 @@ class Person implements CompositeValueObject
     private Age $age;
     private Address $address;
     private ?Phone $phone;
+    private bool $flag;
 
     public function __construct(
         Name $name,
         Age $age,
         Address $address,
+        bool $flag,
         ?Phone $phone = null
     ) {
         $this->name = $name;
         $this->age = $age;
         $this->address = $address;
+        $this->flag = $flag;
         $this->phone = $phone;
     }
 
@@ -38,6 +41,11 @@ class Person implements CompositeValueObject
     public function getAddress(): Address
     {
         return $this->address;
+    }
+
+    public function isFlag(): bool
+    {
+        return $this->flag;
     }
 
     public function getPhone(): ?Phone

@@ -63,6 +63,8 @@ class DefaultSerializerTest extends TestCase
     {
         yield 'age' => [new Age(42), 42];
 
+        yield 'age_falsy' => [new Age(0), 0];
+
         yield 'name' => [new Name('John Smith'), 'John Smith'];
 
         yield 'address' => [new Address('Broadway st', 'New York'), ['street' => 'Broadway st', 'city' => 'New York']];
@@ -79,6 +81,7 @@ class DefaultSerializerTest extends TestCase
                 new Name('John Smith'),
                 new Age(33),
                 new Address('Hollywood Square', 'Los Angeles'),
+                false,
                 new Phone('+391234567890')
             ),
             [
@@ -88,7 +91,8 @@ class DefaultSerializerTest extends TestCase
                     'street' => 'Hollywood Square',
                     'city' => 'Los Angeles'
                 ],
-                'phone' => '+391234567890'
+                'phone' => '+391234567890',
+                'flag' => false
             ]
         ];
     }
