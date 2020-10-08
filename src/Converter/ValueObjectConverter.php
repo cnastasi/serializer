@@ -23,10 +23,9 @@ interface ValueObjectConverter
      * @param class-string $targetClass
      * @param mixed $value
      *
-     * @return ValueObject
-     * @phpstan-return T
+     * @return mixed
      */
-    public function hydrate(string $targetClass, $value): ValueObject;
+    public function hydrate(string $targetClass, $value);
 
     /**
      * @param object|string $object
