@@ -12,8 +12,10 @@ use CNastasi\Example\Person;
 use CNastasi\Example\Phone;
 use CNastasi\Serializer\Converter\CollectionConverter;
 use CNastasi\Serializer\Converter\CompositeValueObjectConverter;
+use CNastasi\Serializer\Converter\DateTimeImmutableConverter;
 use CNastasi\Serializer\Converter\SimpleValueObjectConverter;
 use CNastasi\Serializer\SerializationLoopGuard;
+use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -33,6 +35,7 @@ class DefaultSerializerTest extends TestCase
 
         $this->serializer = new DefaultSerializer(
             [
+                new DateTimeImmutableConverter(),
                 new SimpleValueObjectConverter(),
                 new CompositeValueObjectConverter(),
                 new CollectionConverter()
@@ -81,6 +84,7 @@ class DefaultSerializerTest extends TestCase
                 new Name('John Smith'),
                 new Age(33),
                 new Address('Hollywood Square', 'Los Angeles'),
+                new DateTimeImmutable('2020-10-12T08:53:08+00:00'),
                 false,
                 new Phone('+391234567890')
             ),
@@ -92,7 +96,8 @@ class DefaultSerializerTest extends TestCase
                     'city' => 'Los Angeles'
                 ],
                 'phone' => '+391234567890',
-                'flag' => false
+                'flag' => false,
+                'birthDate' => '2020-10-12T08:53:08+00:00',
             ]
         ];
     }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CNastasi\Example;
 
 use CNastasi\Serializer\Contract\CompositeValueObject;
+use DateTimeImmutable;
 
 class Person implements CompositeValueObject
 {
@@ -13,17 +14,20 @@ class Person implements CompositeValueObject
     private Address $address;
     private ?Phone $phone;
     private bool $flag;
+    private DateTimeImmutable $birthDate;
 
     public function __construct(
         Name $name,
         Age $age,
         Address $address,
+        DateTimeImmutable $birthDate,
         bool $flag,
         ?Phone $phone = null
     ) {
         $this->name = $name;
         $this->age = $age;
         $this->address = $address;
+        $this->birthDate = $birthDate;
         $this->flag = $flag;
         $this->phone = $phone;
     }
