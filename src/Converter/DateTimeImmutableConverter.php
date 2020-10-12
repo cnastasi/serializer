@@ -36,6 +36,10 @@ class DateTimeImmutableConverter implements ValueObjectConverter
             : DateTimeImmutable::createFromFormat(DateTimeInterface::RFC3339, (string) $value);
     }
 
+    /**
+     * @param mixed $object
+     * @return bool
+     */
     public function accept($object): bool
     {
         return is_a($object, DateTimeImmutable::class, true);
