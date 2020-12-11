@@ -24,7 +24,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \CNastasi\Serializer\DefaultSerializer
  */
-class DefaultSerializerTest extends TestCase
+class DefaultSerializerIgnoreNullTrueTest extends TestCase
 {
 
     private DefaultSerializer $serializer;
@@ -41,7 +41,7 @@ class DefaultSerializerTest extends TestCase
                 new CollectionConverter()
             ],
             new SerializationLoopGuard(),
-            new SerializerOptionsDefault(false)
+            new SerializerOptionsDefault(true)
         );
     }
 
@@ -65,21 +65,6 @@ class DefaultSerializerTest extends TestCase
      */
     public function dataProvider(): iterable
     {
-        yield 'age' => [new Age(42), 42];
-
-        yield 'age_falsy' => [new Age(0), 0];
-
-        yield 'name' => [new Name('John Smith'), 'John Smith'];
-
-        yield 'address' => [new Address('Broadway st', 'New York'), ['street' => 'Broadway st', 'city' => 'New York']];
-
-        yield 'classroom' => [
-            new Classroom(
-                [new Name('John Smith'), new Name('Lenny Brown'), new Name('Martha White')]
-            ),
-            ['John Smith', 'Lenny Brown', 'Martha White']
-        ];
-
         yield 'person' => [
             new Person(
                 new Name('John Smith'),
@@ -87,7 +72,7 @@ class DefaultSerializerTest extends TestCase
                 new Address('Hollywood Square', 'Los Angeles'),
                 new DateTimeImmutable('2020-10-12T08:53:08+00:00'),
                 false,
-                new Phone('+391234567890')
+                null
             ),
             [
                 'name' => 'John Smith',
@@ -96,7 +81,6 @@ class DefaultSerializerTest extends TestCase
                     'street' => 'Hollywood Square',
                     'city' => 'Los Angeles'
                 ],
-                'phone' => '+391234567890',
                 'flag' => false,
                 'birthDate' => '2020-10-12T08:53:08+00:00',
             ]

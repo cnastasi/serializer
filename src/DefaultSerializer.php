@@ -22,12 +22,15 @@ class DefaultSerializer implements ValueObjectSerializer
 
     private SerializationLoopGuard $loopGuard;
 
+    private SerializerOptionsDefault $options;
+
     /**
      * @phpunit-param array<mixed> $converters
      * @param array<mixed> $converters
      * @param SerializationLoopGuard $loopGuard
+     * @param SerializerOptions $options
      */
-    public function __construct(array $converters, SerializationLoopGuard $loopGuard)
+    public function __construct(array $converters, SerializationLoopGuard $loopGuard, SerializerOptions $options)
     {
         $this->loopGuard = $loopGuard;
 
@@ -36,6 +39,7 @@ class DefaultSerializer implements ValueObjectSerializer
         }
 
         $this->loopGuard = $loopGuard;
+        $this->options = $options;
     }
 
     public function serialize($object, bool $isRoot = true)
@@ -90,4 +94,10 @@ class DefaultSerializer implements ValueObjectSerializer
 
         $this->converters[] = $converter;
     }
+
+    public function getOptions(): SerializerOptions
+    {
+        return $this->options;
+    }
+
 }

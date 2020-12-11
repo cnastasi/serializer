@@ -2,6 +2,8 @@
 
 namespace CNastasi\Serializer\Contract;
 
+use CNastasi\Serializer\SerializerOptions;
+
 interface ValueObjectSerializer
 {
     /**
@@ -20,4 +22,6 @@ interface ValueObjectSerializer
      * @return mixed
      */
     public function hydrate(string $targetClass, $value, bool $isRoot = true);
+
+    public function getOptions(): SerializerOptions;
 }

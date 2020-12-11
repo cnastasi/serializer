@@ -52,10 +52,18 @@ class CompositeValueObjectConverter implements ValueObjectConverter, SerializerA
             $name = $property->getName();
             $value = $this->getValue($object, $property);
 
-            $data[$name] = $this->serializer->serialize($value, false);
+            $serializedValue = $this->serializer->serialize($value, false);
+            if ($this->shouldAddAttribute($serializedValue)) {
+                $data[$name] = $serializedValue;
+            }
         }
 
         return $data;
+    }
+
+    private function shouldAddAttribute($value)
+    {
+        return null !== $value || false === $this->serializer->getOptions()->isIgnoreNull();
     }
 
     /**
