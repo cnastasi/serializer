@@ -36,7 +36,7 @@ class CompositeValueObjectConverter implements ValueObjectConverter, SerializerA
     /**
      * @inheritDoc
      */
-    public function serialize(object $object)
+    public function serialize($object)
     {
         if (!$this->accept($object)) {
             throw new UnableToSerializeException($object);

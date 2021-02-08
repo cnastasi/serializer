@@ -12,12 +12,12 @@ use CNastasi\Serializer\Contract\ValueObject;
 interface ValueObjectConverter
 {
     /**
-     * @phpstan-param T $object
-     * @param object $object
+     * @phpstan-param T|mixed $object
+     * @param mixed $object
      *
      * @return mixed
      */
-    public function serialize(object $object);
+    public function serialize($object);
 
     /**
      * @param class-string $targetClass

@@ -16,7 +16,7 @@ class DateTimeImmutableConverter implements ValueObjectConverter
      * @param DateTimeImmutable $object
      * @return string
      */
-    public function serialize(object $object): string
+    public function serialize($object): string
     {
         if (!$this->accept($object)) {
             throw new UnableToSerializeException($object);

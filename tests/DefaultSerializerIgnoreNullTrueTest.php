@@ -40,6 +40,7 @@ class DefaultSerializerIgnoreNullTrueTest extends TestCase
                 new CompositeValueObjectConverter(),
                 new CollectionConverter()
             ],
+            [],
             new SerializationLoopGuard(),
             new SerializerOptionsDefault(true)
         );

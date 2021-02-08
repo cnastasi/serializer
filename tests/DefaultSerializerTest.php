@@ -40,6 +40,7 @@ class DefaultSerializerTest extends TestCase
                 new CompositeValueObjectConverter(),
                 new CollectionConverter()
             ],
+            [],
             new SerializationLoopGuard(),
             new SerializerOptionsDefault(false)
         );

@@ -32,7 +32,7 @@ class CollectionConverter implements ValueObjectConverter, SerializerAware, Loop
      *
      * @return array<mixed>
      */
-    public function serialize(object $object)
+    public function serialize($object)
     {
         if (!$this->accept($object)) {
             throw new UnableToSerializeException($object);
