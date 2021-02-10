@@ -2,7 +2,7 @@
 
 namespace CNastasi\Example;
 
-use CNastasi\Serializer\Contract\SimpleValueObject;
+use CNastasi\DDD\Contract\SimpleValueObject;
 
 /**
  * Class Phone

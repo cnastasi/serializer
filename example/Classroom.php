@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace CNastasi\Example;
 
 use ArrayObject;
-use CNastasi\Serializer\Contract\Collection;
+use CNastasi\DDD\Contract\Collection;
 
 /**
  * Class Classroom

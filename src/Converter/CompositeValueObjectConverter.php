@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace CNastasi\Serializer\Converter;
 
-use CNastasi\Serializer\Contract\CompositeValueObject;
+use CNastasi\DDD\Contract\CompositeValueObject;
 use CNastasi\Serializer\Contract\LoopGuardAware;
 use CNastasi\Serializer\Contract\SerializerAware;
-use CNastasi\Serializer\Contract\ValueObject;
+use CNastasi\DDD\Contract\ValueObject;
 use CNastasi\Serializer\Exception\NullValueFoundException;
 use CNastasi\Serializer\Exception\TypeNotFoundException;
 use CNastasi\Serializer\Exception\UnableToSerializeException;

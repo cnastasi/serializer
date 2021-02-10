@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace CNastasi\Serializer\Converter;
 
-use CNastasi\Serializer\Contract\SimpleValueObject;
-use CNastasi\Serializer\Contract\ValueObject;
 use CNastasi\Serializer\Exception\UnableToSerializeException;
 use CNastasi\Serializer\Exception\UnacceptableTargetClassException;
 use DateTimeImmutable;
