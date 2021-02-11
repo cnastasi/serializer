@@ -6,7 +6,7 @@ namespace CNastasi\Serializer;
 
 use CNastasi\Serializer\Contract\LoopGuardAware;
 use CNastasi\Serializer\Contract\SerializerAware;
-use CNastasi\Serializer\Contract\ValueObject;
+use CNastasi\DDD\Contract\ValueObject;
 use CNastasi\Serializer\Contract\ValueObjectSerializer;
 use CNastasi\Serializer\Converter\IdentityConverter;
 use CNastasi\Serializer\Converter\ValueObjectConverter;

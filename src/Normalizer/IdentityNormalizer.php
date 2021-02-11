@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CNastasi\Serializer\Normalizer;
 
-use CNastasi\Serializer\Contract\ValueObject;
+use CNastasi\DDD\Contract\ValueObject;
 
 /**
  * @implements Normalizer<ValueObject>

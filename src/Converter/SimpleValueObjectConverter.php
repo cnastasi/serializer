@@ -6,8 +6,8 @@ namespace CNastasi\Serializer\Converter;
 
 use CNastasi\Serializer\Exception\UnableToSerializeException;
 use CNastasi\Serializer\Exception\UnacceptableTargetClassException;
-use CNastasi\Serializer\Contract\SimpleValueObject;
-use CNastasi\Serializer\Contract\ValueObject;
+use CNastasi\DDD\Contract\SimpleValueObject;
+use CNastasi\DDD\Contract\ValueObject;
 
 /**
  * Class SimpleValueObjectConverter

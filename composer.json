@@ -10,7 +10,8 @@
     }
   ],
   "require": {
-    "php": ">=7.4"
+    "php": ">=7.4",
+    "cnastasi/ddd": "dev-master as v0.1.0"
   },
   "require-dev": {
     "phpunit/phpunit": "^9.3",

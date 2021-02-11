@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CNastasi\Example;
 
-use CNastasi\Serializer\Contract\CompositeValueObject;
+use CNastasi\DDD\Contract\CompositeValueObject;
 use DateTimeImmutable;
 
 class Person implements CompositeValueObject

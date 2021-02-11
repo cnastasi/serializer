@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace CNastasi\Serializer\Converter;
 
-use CNastasi\Serializer\Contract\Collection;
+use CNastasi\DDD\Contract\Collection;
 use CNastasi\Serializer\Contract\LoopGuardAware;
 use CNastasi\Serializer\Contract\SerializerAware;
-use CNastasi\Serializer\Contract\ValueObject;
+use CNastasi\DDD\Contract\ValueObject;
 use CNastasi\Serializer\Exception\UnableToSerializeException;
 use CNastasi\Serializer\Exception\UnacceptableTargetClassException;
 use CNastasi\Serializer\Exception\WrongTypeException;

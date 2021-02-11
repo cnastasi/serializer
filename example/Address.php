@@ -2,7 +2,7 @@
 
 namespace CNastasi\Example;
 
-use CNastasi\Serializer\Contract\CompositeValueObject;
+use CNastasi\DDD\Contract\CompositeValueObject;
 
 class Address implements CompositeValueObject
 {
