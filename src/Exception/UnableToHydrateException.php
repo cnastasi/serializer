@@ -5,10 +5,10 @@ namespace CNastasi\Serializer\Exception;
 
 use RuntimeException;
 
-class UnableToUnserializeException extends RuntimeException
+class UnableToHydrateException extends RuntimeException
 {
     public function __construct(string $targetClass)
     {
-        parent::__construct('Unserializer was not able to serialize ' . $targetClass);
+        parent::__construct('Hydrator was not able to hydrate ' . $targetClass);
     }
 }

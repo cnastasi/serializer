@@ -61,7 +61,11 @@ class CompositeValueObjectConverter implements ValueObjectConverter, SerializerA
         return $data;
     }
 
-    private function shouldAddAttribute($value)
+    /**
+     * @param mixed $value
+     * @return bool
+     */
+    private function shouldAddAttribute($value): bool
     {
         return null !== $value || false === $this->serializer->getOptions()->isIgnoreNull();
     }
@@ -108,7 +112,7 @@ class CompositeValueObjectConverter implements ValueObjectConverter, SerializerA
 
         /**
          * @phpstan-var T $result
-         * @var CompositeValueObject
+         * @var CompositeValueObject $result
          */
         $result = $class->newInstanceArgs($args);
 

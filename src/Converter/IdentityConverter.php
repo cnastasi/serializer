@@ -7,7 +7,7 @@ namespace CNastasi\Serializer\Converter;
 use CNastasi\DDD\Contract\ValueObject;
 
 /**
- * @implements ValueObjectConverter<ValueObject>
+ * @implements ValueObjectConverter<mixed>
  */
 class IdentityConverter implements ValueObjectConverter
 {

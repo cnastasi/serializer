@@ -7,7 +7,7 @@ namespace CNastasi\Serializer\Converter;
 use CNastasi\DDD\Contract\ValueObject;
 
 /**
- * @template T of ValueObject
+ * @template T
  */
 interface ValueObjectConverter
 {

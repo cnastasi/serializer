@@ -21,7 +21,7 @@ use CNastasi\Serializer\Normalizer\Normalizer;
  */
 class DefaultSerializer implements ValueObjectSerializer
 {
-    /** @var ValueObjectConverter<ValueObject>[] $converters */
+    /** @var array<int, ValueObjectConverter<mixed>> $converters */
     private array $converters = [];
 
     /** @var Normalizer<ValueObject>[] $normalizers */
@@ -32,7 +32,7 @@ class DefaultSerializer implements ValueObjectSerializer
     private SerializerOptions $options;
 
     /**
-     * @param ValueObjectConverter<ValueObject>[] $converters
+     * @param array<int, ValueObjectConverter<mixed>> $converters
      * @param Normalizer<ValueObject>[] $normalizers
      * @param SerializationLoopGuard $loopGuard
      * @param SerializerOptions $options
@@ -77,7 +77,7 @@ class DefaultSerializer implements ValueObjectSerializer
 
     /**
      * @param string|object $object
-     * @return ValueObjectConverter<ValueObject>
+     * @return ValueObjectConverter<mixed>
      */
     private function findConverter($object): ValueObjectConverter
     {
@@ -106,7 +106,7 @@ class DefaultSerializer implements ValueObjectSerializer
     }
 
     /**
-     * @param ValueObjectConverter<ValueObject> $converter
+     * @param ValueObjectConverter<ValueObject|object> $converter
      */
     private function addConverter(ValueObjectConverter $converter): void
     {
