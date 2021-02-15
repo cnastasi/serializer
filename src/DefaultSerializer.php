@@ -9,7 +9,6 @@ use CNastasi\Serializer\Contract\SerializerAware;
 use CNastasi\DDD\Contract\ValueObject;
 use CNastasi\Serializer\Contract\ValueObjectSerializer;
 use CNastasi\Serializer\Converter\IdentityConverter;
-use CNastasi\Serializer\Converter\SerializableConverter;
 use CNastasi\Serializer\Converter\ValueObjectConverter;
 use CNastasi\Serializer\Normalizer\IdentityNormalizer;
 use CNastasi\Serializer\Normalizer\Normalizer;
@@ -48,8 +47,6 @@ class DefaultSerializer implements ValueObjectSerializer
         foreach ($normalizers as $normalizer) {
             $this->addNormalizer($normalizer);
         }
-
-        $this->addConverter(new SerializableConverter());
 
         $this->loopGuard = $loopGuard;
 
