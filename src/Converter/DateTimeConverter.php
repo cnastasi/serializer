@@ -20,7 +20,7 @@ class DateTimeConverter implements ValueObjectConverter
 {
     private string $format;
 
-    public function __construct(string $format = 'Y:m:d H:i:s')
+    public function __construct(string $format = 'Y-m-d H:i:s')
     {
         $this->format = $format;
     }
