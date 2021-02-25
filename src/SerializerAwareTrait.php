@@ -8,7 +8,7 @@ use CNastasi\Serializer\Contract\ValueObjectSerializer;
 
 trait SerializerAwareTrait
 {
-    protected ValueObjectSerializer $serializer;
+    protected ?ValueObjectSerializer $serializer = null;
 
     public function setSerializer(ValueObjectSerializer $serializer): void
     {

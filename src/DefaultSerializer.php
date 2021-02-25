@@ -7,6 +7,7 @@ namespace CNastasi\Serializer;
 use CNastasi\Serializer\Contract\LoopGuardAware;
 use CNastasi\Serializer\Contract\SerializerAware;
 use CNastasi\DDD\Contract\ValueObject;
+use CNastasi\DDD\Contract\Collection;
 use CNastasi\Serializer\Contract\ValueObjectSerializer;
 use CNastasi\Serializer\Converter\IdentityConverter;
 use CNastasi\Serializer\Converter\ValueObjectConverter;
@@ -17,13 +18,17 @@ use CNastasi\Serializer\Normalizer\Normalizer;
  * Class DefaultSerializer
  * @package CNastasi\Serializer
  *
+ * @template I of null|int|string|bool|ValueObject|Collection|object
+ * @template O of null|int|string|bool|array<mixed>
+ *
+ * @implements ValueObjectSerializer<I, O>
  */
-class DefaultSerializer implements ValueObjectSerializer
+final class DefaultSerializer implements ValueObjectSerializer
 {
-    /** @var array<int, ValueObjectConverter<mixed>> $converters */
+    /** @var list<ValueObjectConverter<I, O>> $converters */
     private array $converters = [];
 
-    /** @var Normalizer<ValueObject>[] $normalizers */
+    /** @var list<Normalizer<I, mixed, O>> $normalizers */
     private array $normalizers = [];
 
     private SerializationLoopGuard $loopGuard;
@@ -31,8 +36,8 @@ class DefaultSerializer implements ValueObjectSerializer
     private SerializerOptions $options;
 
     /**
-     * @param array<int, ValueObjectConverter<mixed>> $converters
-     * @param Normalizer<ValueObject>[] $normalizers
+     * @param list<ValueObjectConverter<I, O>> $converters
+     * @param list<Normalizer<I, mixed, O>> $normalizers
      * @param SerializationLoopGuard $loopGuard
      * @param SerializerOptions $options
      */
@@ -40,19 +45,23 @@ class DefaultSerializer implements ValueObjectSerializer
     {
         $this->loopGuard = $loopGuard;
 
-        foreach ($converters as $converter) {
-            $this->addConverter($converter);
-        }
+        $this->converters = $converters;
 
-        foreach ($normalizers as $normalizer) {
-            $this->addNormalizer($normalizer);
-        }
+        $this->normalizers = $normalizers;
 
         $this->loopGuard = $loopGuard;
 
         $this->options = $options;
+
+        $this->initConverters();
     }
 
+    /**
+     * @param I $object
+     * @param bool $isRoot
+     *
+     * @return O
+     */
     public function serialize($object, bool $isRoot = true)
     {
         $this->loopGuard->reset();
@@ -60,21 +69,36 @@ class DefaultSerializer implements ValueObjectSerializer
         $converter = $this->findConverter($object);
         $normalizer = $this->findNormalizer($object);
 
-        return $normalizer->normalize($object, $converter->serialize($object));
+        $data = $converter->serialize($object);
+
+        /** @var O $result */
+        $result = $normalizer->normalize($object, $data);
+
+        return $result;
     }
 
+    /**
+     * @psalm-param O $value
+     * @psalm-return I
+     */
     public function hydrate(string $targetClass, $value, bool $isRoot = true)
     {
         $this->loopGuard->reset();
 
         $converter = $this->findConverter($targetClass);
 
-        return $converter->hydrate($targetClass, $value);
+        /**
+         * @psalm-var I $object
+         * @var object $object
+         */
+        $object = $converter->hydrate($targetClass, $value);
+
+        return $object;
     }
 
     /**
-     * @param string|object $object
-     * @return ValueObjectConverter<mixed>
+     * @param class-string|I $object
+     * @psalm-return ValueObjectConverter<I ,O>|IdentityConverter
      */
     private function findConverter($object): ValueObjectConverter
     {
@@ -88,8 +112,9 @@ class DefaultSerializer implements ValueObjectSerializer
     }
 
     /**
-     * @param object|string $object
-     * @return Normalizer<ValueObject>
+     * @param mixed $object
+     *
+     * @return Normalizer<I, O, O>|IdentityNormalizer
      */
     private function findNormalizer($object): Normalizer
     {
@@ -102,28 +127,17 @@ class DefaultSerializer implements ValueObjectSerializer
         return new IdentityNormalizer();
     }
 
-    /**
-     * @param ValueObjectConverter<ValueObject|object> $converter
-     */
-    private function addConverter(ValueObjectConverter $converter): void
+    private function initConverters(): void
     {
-        if ($converter instanceof SerializerAware) {
-            $converter->setSerializer($this);
+        foreach ($this->converters as $converter) {
+            if ($converter instanceof SerializerAware) {
+                $converter->setSerializer($this);
+            }
+
+            if ($converter instanceof LoopGuardAware) {
+                $converter->setLoopGuard($this->loopGuard);
+            }
         }
-
-        if ($converter instanceof LoopGuardAware) {
-            $converter->setLoopGuard($this->loopGuard);
-        }
-
-        $this->converters[] = $converter;
-    }
-
-    /**
-     * @param Normalizer<ValueObject> $normalizer
-     */
-    private function addNormalizer(Normalizer $normalizer): void
-    {
-        $this->normalizers[] = $normalizer;
     }
 
     public function getOptions(): SerializerOptions

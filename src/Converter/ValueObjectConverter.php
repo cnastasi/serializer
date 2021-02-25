@@ -4,31 +4,32 @@ declare(strict_types=1);
 
 namespace CNastasi\Serializer\Converter;
 
+use CNastasi\DDD\Contract\Collection;
 use CNastasi\DDD\Contract\ValueObject;
 
 /**
- * @template T
+ * @template I
+ * @template O
  */
 interface ValueObjectConverter
 {
     /**
-     * @phpstan-param T|mixed $object
-     * @param mixed $object
+     * @param I $object
      *
-     * @return mixed
+     * @return O
      */
     public function serialize($object);
 
     /**
      * @param class-string $targetClass
-     * @param mixed $value
+     * @param O $value
      *
-     * @return mixed
+     * @return I
      */
     public function hydrate(string $targetClass, $value);
 
     /**
-     * @param object|string $object
+     * @param I|object|class-string $object
      *
      * @return bool
      */

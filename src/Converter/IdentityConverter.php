@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace CNastasi\Serializer\Converter;
 
 use CNastasi\DDD\Contract\ValueObject;
+use CNastasi\DDD\Contract\Collection;
 
 /**
- * @implements ValueObjectConverter<mixed>
+ * @template T of null|int|string|bool|ValueObject|Collection
+ *
+ * @implements ValueObjectConverter<T, T>
  */
 class IdentityConverter implements ValueObjectConverter
 {

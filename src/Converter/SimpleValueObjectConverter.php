@@ -10,20 +10,13 @@ use CNastasi\DDD\Contract\SimpleValueObject;
 use CNastasi\DDD\Contract\ValueObject;
 
 /**
- * Class SimpleValueObjectConverter
- * @package CNastasi\Serializer\Converter
  *
- * @template T of SimpleValueObject<mixed>
- * @implements ValueObjectConverter<T>
+ * @template T of int|string|bool|object
+ *
+ * @implements ValueObjectConverter<SimpleValueObject<T>, T>
  */
-class SimpleValueObjectConverter implements ValueObjectConverter
+final class SimpleValueObjectConverter implements ValueObjectConverter
 {
-    /**
-     * @phpstan-param T $object
-     * @param object $object
-     *
-     * @return mixed
-     */
     public function serialize($object)
     {
         if (!$this->accept($object)) {
@@ -38,15 +31,7 @@ class SimpleValueObjectConverter implements ValueObjectConverter
         return is_a($object, SimpleValueObject::class, true);
     }
 
-    /**
-     * @param class-string $targetClass
-     * @param mixed $value
-     *
-     * @return ValueObject
-     * @phpstan-return T
-     *
-     * @throws UnacceptableTargetClassException
-     */
+
     public function hydrate(string $targetClass, $value): ValueObject
     {
         if (!$this->accept($targetClass)) {

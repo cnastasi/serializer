@@ -5,12 +5,20 @@ declare(strict_types=1);
 namespace CNastasi\Serializer\Normalizer;
 
 use CNastasi\DDD\Contract\ValueObject;
+use CNastasi\DDD\Contract\Collection;
 
 /**
- * @implements Normalizer<ValueObject>
+ * @template T
+ *
+ * @implements Normalizer<T, int|string|bool|array<mixed>|null, int|string|bool|array<mixed>|null>
  */
-class IdentityNormalizer implements Normalizer
+final class IdentityNormalizer implements Normalizer
 {
+    /**
+     * @psalm-param class-string|object $object
+     *
+     * @psalm-return true
+     */
     public function accept($object): bool
     {
         return true;

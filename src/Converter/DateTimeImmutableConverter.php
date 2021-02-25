@@ -13,14 +13,10 @@ use DateTimeInterface;
  * Class DateTimeImmutableConverter
  * @package CNastasi\Serializer\Converter
  *
- * @implements ValueObjectConverter<DateTimeImmutable>
+ * @implements ValueObjectConverter<DateTimeImmutable, string>
  */
 class DateTimeImmutableConverter implements ValueObjectConverter
 {
-    /**
-     * @param DateTimeImmutable $object
-     * @return string
-     */
     public function serialize($object): string
     {
         if (!$this->accept($object)) {
@@ -49,10 +45,6 @@ class DateTimeImmutableConverter implements ValueObjectConverter
         return $result;
     }
 
-    /**
-     * @param mixed $object
-     * @return bool
-     */
     public function accept($object): bool
     {
         return is_a($object, DateTimeImmutable::class, true);

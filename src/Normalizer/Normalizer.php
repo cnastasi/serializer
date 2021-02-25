@@ -5,21 +5,23 @@ declare(strict_types=1);
 namespace CNastasi\Serializer\Normalizer;
 
 /**
- * @template T
+ * @template T The original object
+ * @template I the input data
+ * @template O the output data
+ *
  */
 interface Normalizer
 {
     /**
-     * @phpstan-param T $object
-     * @param mixed $object The origin object, before the serialization. Could be also a primitive
-     * @param int|string|array<mixed> $data The serialized data
+     * @psalm-param T $object The origin object, before the serialization. Could be also a primitive
+     * @param I $data The serialized data
      *
-     * @return int|string|array<mixed>
+     * @return O the normalized data
      */
     public function normalize($object, $data);
 
     /**
-     * @param object|string $object
+     * @param class-string|object $object
      *
      * @return bool
      */

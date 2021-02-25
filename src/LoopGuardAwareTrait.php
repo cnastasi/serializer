@@ -6,7 +6,7 @@ namespace CNastasi\Serializer;
 
 trait LoopGuardAwareTrait
 {
-    protected SerializationLoopGuard $loopGuard;
+    protected ?SerializationLoopGuard $loopGuard = null;
 
     public function setLoopGuard(SerializationLoopGuard $loopGuard): void
     {

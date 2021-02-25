@@ -8,6 +8,8 @@ use CNastasi\DDD\Contract\Collection;
 use CNastasi\Serializer\Contract\LoopGuardAware;
 use CNastasi\Serializer\Contract\SerializerAware;
 use CNastasi\DDD\Contract\ValueObject;
+use CNastasi\Serializer\Exception\LoopGuardNotInjectedException;
+use CNastasi\Serializer\Exception\SerializerNotInjectedException;
 use CNastasi\Serializer\Exception\UnableToSerializeException;
 use CNastasi\Serializer\Exception\UnacceptableTargetClassException;
 use CNastasi\Serializer\Exception\WrongTypeException;
@@ -15,25 +17,25 @@ use CNastasi\Serializer\LoopGuardAwareTrait;
 use CNastasi\Serializer\SerializerAwareTrait;
 
 /**
- * Class CollectionConverter
- * @package CNastasi\Serializer\Converter
+ * @template T of Collection<mixed, ValueObject>
  *
- * @template T of Collection<ValueObject>
- * @implements ValueObjectConverter<T>
+ * @implements ValueObjectConverter<T, mixed>
  */
-class CollectionConverter implements ValueObjectConverter, SerializerAware, LoopGuardAware
+final class CollectionConverter implements ValueObjectConverter, SerializerAware, LoopGuardAware
 {
     use SerializerAwareTrait;
     use LoopGuardAwareTrait;
 
-    /**
-     * @phpstan-param T $object
-     * @param object $object
-     *
-     * @return array<mixed>
-     */
     public function serialize($object)
     {
+        if (!$this->serializer) {
+            throw new SerializerNotInjectedException();
+        }
+
+        if (!$this->loopGuard) {
+            throw new LoopGuardNotInjectedException();
+        }
+
         if (!$this->accept($object)) {
             throw new UnableToSerializeException($object);
         }
@@ -54,17 +56,7 @@ class CollectionConverter implements ValueObjectConverter, SerializerAware, Loop
         return is_a($object, Collection::class, true);
     }
 
-    /**
-     * @param string $targetClass
-     * @param array<mixed>|mixed $value
-     *
-     * @return ValueObject
-     * @phpstan-return T
-     *
-     * @throws UnacceptableTargetClassException
-     * @throws WrongTypeException
-     */
-    public function hydrate(string $targetClass, $value): ValueObject
+    public function hydrate(string $targetClass, $value): Collection
     {
         if (!$this->accept($targetClass)) {
             throw new UnacceptableTargetClassException($targetClass);
@@ -74,7 +66,7 @@ class CollectionConverter implements ValueObjectConverter, SerializerAware, Loop
             throw new WrongTypeException(get_class($value), 'Iterable');
         }
 
-        /** @phpstan-var T $collection */
+        /** @psalm-var T $collection */
         $collection = new $targetClass();
 
         foreach ($value as $item) {
