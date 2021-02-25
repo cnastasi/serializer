@@ -2,8 +2,6 @@
 
 namespace CNastasi\Serializer\Contract;
 
-use CNastasi\DDD\Contract\Collection;
-use CNastasi\DDD\Contract\ValueObject;
 use CNastasi\Serializer\SerializerOptions;
 
 /**

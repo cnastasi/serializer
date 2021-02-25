@@ -2,25 +2,11 @@
 
 namespace CNastasi\Example;
 
-use CNastasi\DDD\Contract\SimpleValueObject;
+use CNastasi\DDD\ValueObject\Primitive\Text;
 
 /**
- * Class Name
- * @package CNastasi\Example
- *
- * @implements SimpleValueObject<string>
+ * @psalm-immutable
  */
-class Name implements SimpleValueObject
+class Name extends Text
 {
-    private string $value;
-
-    public function __construct($value)
-    {
-        $this->value = $value;
-    }
-
-    public function value(): string
-    {
-        return $this->value;
-    }
 }

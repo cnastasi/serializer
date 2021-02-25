@@ -4,9 +4,17 @@ declare(strict_types=1);
 
 namespace CNastasi\Example;
 
+use CNastasi\DDD\Contract\Comparable;
 use CNastasi\DDD\Contract\CompositeValueObject;
-use DateTimeImmutable;
+use CNastasi\DDD\Error\IncomparableObjects;
+use CNastasi\DDD\ValueObject\Primitive\DateTime;
 
+/**
+ * Class Person
+ * @package CNastasi\Example
+ *
+ * @psalm-immutable
+ */
 class Person implements CompositeValueObject
 {
     private Name $name;
@@ -14,13 +22,13 @@ class Person implements CompositeValueObject
     private Address $address;
     private ?Phone $phone;
     private bool $flag;
-    private DateTimeImmutable $birthDate;
+    private DateTime $birthDate;
 
     public function __construct(
         Name $name,
         Age $age,
         Address $address,
-        DateTimeImmutable $birthDate,
+        DateTime $birthDate,
         bool $flag,
         ?Phone $phone = null
     ) {
@@ -55,6 +63,20 @@ class Person implements CompositeValueObject
     public function getPhone(): ?Phone
     {
         return $this->phone;
+    }
+
+    public function equalsTo(Comparable $item): bool
+    {
+        if ($item instanceof static) {
+            return $item->name->equalsTo($this->name)
+                && $item->age->equalsTo($this->age)
+                && $item->address->equalsTo($this->address)
+                && $item->birthDate->equalsTo($this->birthDate)
+                && $item->flag === $this->flag
+                && $item->phone->equalsTo($this->phone);
+        }
+
+        throw new IncomparableObjects($item, $this);
     }
 }
 //

@@ -4,18 +4,16 @@ declare(strict_types=1);
 
 namespace CNastasi\Serializer;
 
+use CNastasi\DDD\ValueObject\Primitive\DateTime;
 use CNastasi\Example\Address;
 use CNastasi\Example\Age;
-use CNastasi\Example\Classroom;
 use CNastasi\Example\Name;
 use CNastasi\Example\Person;
-use CNastasi\Example\Phone;
 use CNastasi\Serializer\Converter\CollectionConverter;
 use CNastasi\Serializer\Converter\CompositeValueObjectConverter;
-use CNastasi\Serializer\Converter\DateTimeImmutableConverter;
+use CNastasi\Serializer\Converter\DateTimeConverter;
 use CNastasi\Serializer\Converter\SimpleValueObjectConverter;
-use CNastasi\Serializer\SerializationLoopGuard;
-use DateTimeImmutable;
+use DateTimeInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -35,7 +33,7 @@ class DefaultSerializerIgnoreNullTrueTest extends TestCase
 
         $this->serializer = new DefaultSerializer(
             [
-                new DateTimeImmutableConverter(),
+                new DateTimeConverter(DateTimeInterface::RFC3339),
                 new SimpleValueObjectConverter(),
                 new CompositeValueObjectConverter(),
                 new CollectionConverter()
@@ -71,7 +69,7 @@ class DefaultSerializerIgnoreNullTrueTest extends TestCase
                 new Name('John Smith'),
                 new Age(33),
                 new Address('Hollywood Square', 'Los Angeles'),
-                new DateTimeImmutable('2020-10-12T08:53:08+00:00'),
+                DateTime::fromString('2020-10-12 08:53:08'),
                 false,
                 null
             ),

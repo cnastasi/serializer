@@ -64,16 +64,16 @@
         },
         {
             "name": "cnastasi/ddd",
-            "version": "v0.2.3",
+            "version": "v0.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cnastasi/ddd.git",
-                "reference": "2033cd44dcee7e9062a83e4001059532fa051172"
+                "reference": "93c18e037e0ce92b30ebeb567e26273290a32f7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cnastasi/ddd/zipball/2033cd44dcee7e9062a83e4001059532fa051172",
-                "reference": "2033cd44dcee7e9062a83e4001059532fa051172",
+                "url": "https://api.github.com/repos/cnastasi/ddd/zipball/93c18e037e0ce92b30ebeb567e26273290a32f7d",
+                "reference": "93c18e037e0ce92b30ebeb567e26273290a32f7d",
                 "shasum": ""
             },
             "require": {
@@ -105,9 +105,9 @@
             "description": "A base for a DDD approach",
             "support": {
                 "issues": "https://github.com/cnastasi/ddd/issues",
-                "source": "https://github.com/cnastasi/ddd/tree/v0.2.3"
+                "source": "https://github.com/cnastasi/ddd/tree/v0.2.4"
             },
-            "time": "2021-02-25T12:44:04+00:00"
+            "time": "2021-02-25T14:55:10+00:00"
         },
         {
             "name": "myclabs/php-enum",
